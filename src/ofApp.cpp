@@ -83,7 +83,11 @@ void ofApp::draw(){
             ofFill();
             ofSetColor(0,255,0);
             float curPos = i + (i * (ofGetWidth()/10));
-            ofDrawCircle((i*ofGetWidth()/8+ofGetWidth()/16), ofGetHeight()*0.75+ofMap(sounds[i].getPosition(), 1, 0, 0, ofGetHeight()/8), 10);
+            if(sounds[i].getPosition() < 0.5){
+                ofDrawCircle((i*ofGetWidth()/8+ofGetWidth()/16), ofGetHeight()*0.75+ofMap(sounds[i].getPosition(), 0.2, 0, 0, ofGetHeight()/8), 10);
+            }else{
+                ofDrawCircle((i*ofGetWidth()/8+ofGetWidth()/16), ofGetHeight()*0.75+ofMap(1-(sounds[i].getPosition()), 0.2, 0, 0, ofGetHeight()/8), 10);
+            }
         }else {
             ofSetColor(255, 0, 0);
             ofNoFill();
