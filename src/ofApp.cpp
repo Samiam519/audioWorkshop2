@@ -14,67 +14,23 @@ void ofApp::setup(){
         sounds[i].setMultiPlay(true);
     }
     ofSetBackgroundColor(255);
-    int bufferSize = 256;
-    soundStream.setup(this, 0, 2, 44100, bufferSize, 4);
-}
-//--------------------------------------------------------------
-void ofApp::audioIn(float * input, int bufferSize, int nChannels){
-    //RMS Algorithm. Get loudness of input.
-    
-    float rms = 0.0;
-    int numCounted = 0;
-    for (int i = 0; i < bufferSize; i++) {
-        float leftSample = input[i * 2] * .5;
-        float rightSample = input[i * 2 + 1] * .5;
-        rms += leftSample * leftSample;
-        rms += rightSample * rightSample;
-        numCounted += 2;
-    }
-    
-    rms /= (float)numCounted;
-    rms = sqrt(rms);
-    loudness = rms;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    ofSetBackgroundColor(255);
-    if(sounds[0].isPlaying()) {
+    int soundsPlaying = 0;
+    for(int i = 8; i > 0; i--) {
+        if(sounds[i-1].isPlaying()) {
+            soundsPlaying++;
+            cout << "sound " << i - 1 << " is playing" << endl;
+        }
+    }
+    if(soundsPlaying == 0){
+        ofSetBackgroundColor(255);
+    }else{
         ofSetBackgroundColor(0);
     }
-    if(sounds[1].isPlaying()) {
-        ofSetBackgroundColor(0);
-    }
-    if(sounds[2].isPlaying()) {
-        ofSetBackgroundColor(0);
-    }
-    if(sounds[3].isPlaying()) {
-        ofSetBackgroundColor(0);
-    }
-    if(sounds[4].isPlaying()) {
-        ofSetBackgroundColor(0);
-    }
-    if(sounds[5].isPlaying()) {
-        ofSetBackgroundColor(0);
-    }
-    if(sounds[6].isPlaying()) {
-        ofSetBackgroundColor(0);
-    }
-    if(sounds[7].isPlaying()) {
-        ofSetBackgroundColor(0);
-    }
-    //for loop only changes background color for last element viewed
-//    for(int i = 8; i > 0; i--) {
-//        int soundsPlaying = 0;
-//        if(sounds[i-1].isPlaying()) {
-//            soundsPlaying++;
-//        }
-//        if(soundsPlaying == 0){
-//            ofSetBackgroundColor(255);
-//        }else{
-//            ofSetBackgroundColor(0);
-//        }
-//    }
+
 }
 //--------------------------------------------------------------
 void ofApp::draw(){

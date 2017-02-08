@@ -22,8 +22,5 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
         ofSoundPlayer sounds[8];
-    
-        void audioIn(float * input, int bufferSize, int nChannels);
-        float loudness;
-        ofSoundStream soundStream;
+
 };
